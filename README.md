@@ -4,6 +4,7 @@
 3. jalankan perintah berikut di dalam terminal folder BE
   - npm install
   - npm i mysql
+  - npm i cors
 
 # ReactJS
 1. masuk ke folder view-for-admin
@@ -16,3 +17,4 @@
   - npm i --save @fortawesome/react-fontawesome@latest
   - npm i --save-dev eslint-plugin-prettier
   - npm i @coreui/icons
+  - npm i axios
