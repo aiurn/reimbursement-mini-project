@@ -18,3 +18,4 @@
   - npm i --save-dev eslint-plugin-prettier
   - npm i @coreui/icons
   - npm i axios
+  - npm i sweetalert2
