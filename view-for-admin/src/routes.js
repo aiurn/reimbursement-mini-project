@@ -103,8 +103,8 @@ const routes = [
   { path: '/widgets', name: 'Widgets', element: Widgets },
   { path: '/employee', name: 'Employee', element: EmployeeIndex },
   { path: '/employee/create', name: 'Create Employee', element: EmployeeCreate },
-  { path: '/employee/edit/:id', name: 'Create Employee', element: EmployeeEdit },
-  { path: '/employee/show/:id', name: 'Create Employee', element: EmployeeShow },
+  { path: '/employee/edit/:id', name: 'Edit Employee', element: EmployeeEdit },
+  { path: '/employee/show/:id', name: 'Show Employee', element: EmployeeShow },
 ]
 
 export default routes
