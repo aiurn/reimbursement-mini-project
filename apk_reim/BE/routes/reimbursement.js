@@ -21,22 +21,22 @@ router.get('/reimbursement/:id', (req, res) => {
 
 // Insert a reimbursement
 router.post('/reimbursement', (req, res) => {
-  const { tanggal, pegawai_id, tipe_pengajuan_id, jumlah, bukti_transaksi, keterangan, status, alasan } = req.body;
-  mysqlConnection.query('INSERT INTO reimbursement (tanggal, pegawai_id, tipe_pengajuan_id, jumlah, bukti_transaksi, keterangan, status, alasan) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
-    [tanggal, pegawai_id, tipe_pengajuan_id, jumlah, bukti_transaksi, keterangan, status, alasan],
+  const { date, employee_id, type_id, amount, transaction_receipt, note, status, reason } = req.body;
+  mysqlConnection.query('INSERT INTO reimbursement (date, employee_id, type_id, amount, transaction_receipt, note, status, reason) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+    [date, employee_id, type_id, amount, transaction_receipt, note, status, reason],
     (err, rows, fields) => {
-      if (!err) res.send('Reimbursement berhasil ditambahkan');
+      if (!err) res.send('Reimbursement created successfully');
       else console.log(err);
     });
 });
 
 // Update a reimbursement
 router.put('/reimbursement/:id', (req, res) => {
-  const { tanggal, pegawai_id, tipe_pengajuan_id, jumlah, bukti_transaksi, keterangan, status, alasan } = req.body;
-  mysqlConnection.query('UPDATE reimbursement SET tanggal = ?, pegawai_id = ?, tipe_pengajuan_id = ?, jumlah = ?, bukti_transaksi = ?, keterangan = ?, status = ?, alasan = ? WHERE id = ?',
-    [tanggal, pegawai_id, tipe_pengajuan_id, jumlah, bukti_transaksi, keterangan, status, alasan, req.params.id],
+  const { date, employee_id, type_id, amount, transaction_receipt, note, status, reason } = req.body;
+  mysqlConnection.query('UPDATE reimbursement SET date = ?, employee_id = ?, type_id = ?, amount = ?, transaction_receipt = ?, note = ?, status = ?, reason = ? WHERE id = ?',
+    [date, employee_id, type_id, amount, transaction_receipt, note, status, reason, req.params.id],
     (err, rows, fields) => {
-      if (!err) res.send('Reimbursement berhasil diperbarui');
+      if (!err) res.send('Reimbursement updated successfully');
       else console.log(err);
     });
 });
@@ -44,7 +44,7 @@ router.put('/reimbursement/:id', (req, res) => {
 // Delete a reimbursement
 router.delete('/reimbursement/:id', (req, res) => {
   mysqlConnection.query('DELETE FROM reimbursement WHERE id = ?', [req.params.id], (err, rows, fields) => {
-    if (!err) res.send('Reimbursement berhasil dihapus');
+    if (!err) res.send('Reimbursement deleted successfully');
     else console.log(err);
   });
 });

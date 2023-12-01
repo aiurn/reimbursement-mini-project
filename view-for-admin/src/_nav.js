@@ -267,8 +267,8 @@ const _nav = [
   },
   {
     component: CNavItem,
-    name: 'Pegawai',
-    to: '/pegawai',
+    name: 'Employee',
+    to: '/employee',
     icon: <FontAwesomeIcon icon={faUserTie} className="nav-icon" />,
   },
   {

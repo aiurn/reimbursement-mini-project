@@ -50,6 +50,7 @@ INSERT INTO `divisi` (`id`, `nama`) VALUES
 
 CREATE TABLE `pegawai` (
   `id` int(11) NOT NULL,
+  `nama` varchar(20) NOT NULL,
   `nrp` varchar(20) NOT NULL,
   `divisi_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;

@@ -50,11 +50,11 @@ const Toasts = React.lazy(() => import('./views/notifications/toasts/Toasts'))
 
 const Widgets = React.lazy(() => import('./views/widgets/Widgets'))
 
-// PEGAWAI
-const PegawaiIndex = React.lazy(() => import('./views/pegawai/PegawaiIndex'))
-const PegawaiCreate = React.lazy(() => import('./views/pegawai/PegawaiCreate'))
-const PegawaiEdit = React.lazy(() => import('./views/pegawai/PegawaiEdit'))
-const PegawaiShow = React.lazy(() => import('./views/pegawai/PegawaiShow'))
+// Employee
+const EmployeeIndex = React.lazy(() => import('./views/employee/EmployeeIndex'))
+const EmployeeCreate = React.lazy(() => import('./views/employee/EmployeeCreate'))
+const EmployeeEdit = React.lazy(() => import('./views/employee/EmployeeEdit'))
+const EmployeeShow = React.lazy(() => import('./views/employee/EmployeeShow'))
 
 const routes = [
   { path: '/', exact: true, name: 'Home' },
@@ -101,10 +101,10 @@ const routes = [
   { path: '/notifications/modals', name: 'Modals', element: Modals },
   { path: '/notifications/toasts', name: 'Toasts', element: Toasts },
   { path: '/widgets', name: 'Widgets', element: Widgets },
-  { path: '/pegawai', name: 'Pegawai', element: PegawaiIndex },
-  { path: '/pegawai/create', name: 'Create Pegawai', element: PegawaiCreate },
-  { path: '/pegawai/edit', name: 'Create Pegawai', element: PegawaiEdit },
-  { path: '/pegawai/show', name: 'Create Pegawai', element: PegawaiShow },
+  { path: '/employee', name: 'Employee', element: EmployeeIndex },
+  { path: '/employee/create', name: 'Create Employee', element: EmployeeCreate },
+  { path: '/employee/edit/:id', name: 'Create Employee', element: EmployeeEdit },
+  { path: '/employee/show/:id', name: 'Create Employee', element: EmployeeShow },
 ]
 
 export default routes

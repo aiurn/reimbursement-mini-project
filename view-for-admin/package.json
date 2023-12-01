@@ -33,6 +33,7 @@
     "@fortawesome/free-brands-svg-icons": "^6.4.2",
     "@fortawesome/free-solid-svg-icons": "^6.4.2",
     "@fortawesome/react-fontawesome": "^0.2.0",
+    "axios": "^1.6.2",
     "chart.js": "^3.9.1",
     "classnames": "^2.3.2",
     "core-js": "^3.31.0",
@@ -43,7 +44,8 @@
     "react-redux": "^8.1.1",
     "react-router-dom": "^6.14.0",
     "redux": "4.2.1",
-    "simplebar-react": "^2.4.3"
+    "simplebar-react": "^2.4.3",
+    "sweetalert2": "^11.10.1"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.5",
