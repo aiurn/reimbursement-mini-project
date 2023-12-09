@@ -19,7 +19,7 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 import Swal from 'sweetalert2'
 
-const EmployeeIndex = (props) => {
+const EmployeeIndex = () => {
   const [employees, setEmployee] = useState([])
 
   useEffect(() => {
@@ -97,7 +97,7 @@ const EmployeeIndex = (props) => {
               <CTableHeaderCell scope="col">Department</CTableHeaderCell>
               <CTableHeaderCell scope="col">Username</CTableHeaderCell>
               <CTableHeaderCell scope="col">Email</CTableHeaderCell>
-              <CTableHeaderCell scope="col">Aksi</CTableHeaderCell>
+              <CTableHeaderCell scope="col">Action</CTableHeaderCell>
             </CTableRow>
           </CTableHead>
           <CTableBody>
@@ -116,7 +116,7 @@ const EmployeeIndex = (props) => {
                   <Link to={`/employee/edit/${employee.id}`} className="btn btn-sm btn-warning me-2">
                     <FontAwesomeIcon icon={faPen} />
                   </Link>
-                  <CButton type="submit" color="danger" className="btn-sm" onClick={() => handleDeleteButton(employee.id, employee.name)}>
+                  <CButton type="button" color="danger" className="btn-sm" onClick={() => handleDeleteButton(employee.id, employee.name)}>
                     <FontAwesomeIcon icon={faTrashCan} />
                   </CButton>
                 </CTableDataCell>

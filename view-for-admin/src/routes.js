@@ -56,6 +56,12 @@ const EmployeeCreate = React.lazy(() => import('./views/employee/EmployeeCreate'
 const EmployeeEdit = React.lazy(() => import('./views/employee/EmployeeEdit'))
 const EmployeeShow = React.lazy(() => import('./views/employee/EmployeeShow'))
 
+// Reimbursement
+const ReimbursementIndex = React.lazy(() => import('./views/reimbursement/ReimbursementIndex'))
+const ReimbursementCreate = React.lazy(() => import('./views/reimbursement/ReimbursementCreate'))
+const ReimbursementEdit = React.lazy(() => import('./views/reimbursement/ReimbursementEdit'))
+const ReimbursementShow = React.lazy(() => import('./views/reimbursement/ReimbursementShow'))
+
 const routes = [
   { path: '/', exact: true, name: 'Home' },
   { path: '/dashboard', name: 'Dashboard', element: Dashboard },
@@ -105,6 +111,10 @@ const routes = [
   { path: '/employee/create', name: 'Create Employee', element: EmployeeCreate },
   { path: '/employee/edit/:id', name: 'Edit Employee', element: EmployeeEdit },
   { path: '/employee/show/:id', name: 'Show Employee', element: EmployeeShow },
+  { path: '/reimbursement', name: 'Reimbursement', element: ReimbursementIndex },
+  { path: '/reimbursement/create', name: 'Create Reimbursement', element: ReimbursementCreate },
+  { path: '/reimbursement/edit/:id', name: 'Edit Reimbursement', element: ReimbursementEdit },
+  { path: '/reimbursement/show/:id', name: 'Show Reimbursement', element: ReimbursementShow },
 ]
 
 export default routes

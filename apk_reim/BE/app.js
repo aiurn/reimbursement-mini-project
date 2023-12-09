@@ -2,6 +2,7 @@
 const express = require("express");
 const cors = require("cors");
 const app = express();
+const path = require("path");
 const port = 3306;
 const bodyParser = require("body-parser");
 const departmentRoutes = require("./routes/department");
@@ -17,6 +18,8 @@ app.use(cors({
 
 // Middleware untuk membaca JSON dari request
 app.use(bodyParser.json());
+
+app.use(express.static(path.join(__dirname, "../public ")))
 
 // Menggunakan routes
 app.use("/api", departmentRoutes);

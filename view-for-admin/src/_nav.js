@@ -15,7 +15,7 @@ import {
 } from '@coreui/icons'
 import { CNavGroup, CNavItem, CNavTitle } from '@coreui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUserTie } from '@fortawesome/free-solid-svg-icons'
+import { faFileInvoice, faUserTie } from '@fortawesome/free-solid-svg-icons'
 
 const _nav = [
   {
@@ -270,6 +270,12 @@ const _nav = [
     name: 'Employee',
     to: '/employee',
     icon: <FontAwesomeIcon icon={faUserTie} className="nav-icon" />,
+  },
+  {
+    component: CNavItem,
+    name: 'Reimbursement',
+    to: '/reimbursement',
+    icon: <FontAwesomeIcon icon={faFileInvoice} className="nav-icon" />,
   },
   {
     component: CNavTitle,
