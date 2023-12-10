@@ -7,7 +7,7 @@
   - npm i cors
 
 # ReactJS
-1. masuk ke folder view-for-admin
+1. masuk ke folder view-for-admin / front-end (sesuaikan dengan mengerjakan project yang mana)
 2. lalu jalankan perintah berikut di dalam terminal folder view-for-admin
   - npm install
   - npm i --save @fortawesome/fontawesome-svg-core
