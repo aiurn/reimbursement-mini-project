@@ -50,6 +50,12 @@ const Toasts = React.lazy(() => import('./views/notifications/toasts/Toasts'))
 
 const Widgets = React.lazy(() => import('./views/widgets/Widgets'))
 
+// Reimbursement
+const ReimbursementIndex = React.lazy(() => import('./views/reimbursement/ReimbursementIndex'))
+const ReimbursementCreate = React.lazy(() => import('./views/reimbursement/ReimbursementCreate'))
+const ReimbursementEdit = React.lazy(() => import('./views/reimbursement/ReimbursementEdit'))
+const ReimbursementShow = React.lazy(() => import('./views/reimbursement/ReimbursementShow'))
+
 const routes = [
   { path: '/', exact: true, name: 'Home' },
   { path: '/dashboard', name: 'Dashboard', element: Dashboard },
@@ -95,6 +101,10 @@ const routes = [
   { path: '/notifications/modals', name: 'Modals', element: Modals },
   { path: '/notifications/toasts', name: 'Toasts', element: Toasts },
   { path: '/widgets', name: 'Widgets', element: Widgets },
+  { path: '/reimbursement', name: 'Reimbursement', element: ReimbursementIndex },
+  { path: '/reimbursement/create', name: 'Create Reimbursement', element: ReimbursementCreate },
+  { path: '/reimbursement/edit/:id', name: 'Edit Reimbursement', element: ReimbursementEdit },
+  { path: '/reimbursement/show/:id', name: 'Show Reimbursement', element: ReimbursementShow },
 ]
 
 export default routes

@@ -14,6 +14,8 @@ import {
   cilStar,
 } from '@coreui/icons'
 import { CNavGroup, CNavItem, CNavTitle } from '@coreui/react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faFileInvoice } from '@fortawesome/free-solid-svg-icons'
 
 const _nav = [
   {
@@ -262,6 +264,12 @@ const _nav = [
       color: 'info',
       text: 'NEW',
     },
+  },
+  {
+    component: CNavItem,
+    name: 'Reimbursement',
+    to: '/reimbursement',
+    icon: <FontAwesomeIcon icon={faFileInvoice} className="nav-icon" />,
   },
   {
     component: CNavTitle,

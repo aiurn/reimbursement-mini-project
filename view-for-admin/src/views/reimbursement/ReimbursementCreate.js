@@ -61,7 +61,7 @@ const ReimbursementCreate = () => {
       formData.append('transaction_receipt', transactionReceipt);
       formData.append('note', note);
       formData.append('status', 'In review');
-      formData.append('reason', null);
+      // formData.append('reason', null);
 
       await axios.post('http://localhost:5000/api/reimbursement', formData, {
         headers: {

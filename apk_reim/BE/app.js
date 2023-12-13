@@ -9,6 +9,7 @@ const departmentRoutes = require("./routes/department");
 const employeeRoutes = require("./routes/employee");
 const reimbursementRoutes = require("./routes/reimbursement");
 const typeRoutes = require("./routes/type");
+// const FileUpload = require("express-fileupload") //cek lagi
 
 app.use(cors({
   origin: 'http://localhost:3000',  // Atur origin sesuai dengan aplikasi React Anda
@@ -19,7 +20,9 @@ app.use(cors({
 // Middleware untuk membaca JSON dari request
 app.use(bodyParser.json());
 
-app.use(express.static(path.join(__dirname, "../public ")))
+// app.use(FileUpload()); //cek lagi
+app.use('/public', express.static(path.join(__dirname, 'public')));
+// app.use(express.static(path.join(__dirname, "../public ")))
 
 // Menggunakan routes
 app.use("/api", departmentRoutes);

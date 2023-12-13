@@ -11,10 +11,19 @@ import {
   CTableHeaderCell,
   CTableBody,
   CTableDataCell,
+  CBadge,
 } from '@coreui/react'
-import { faEye, faFileInvoice, faPen, faPlus, faTrashCan } from '@fortawesome/free-solid-svg-icons'
+import {
+  faEye,
+  faFileCircleCheck,
+  faFileInvoice,
+  faPen,
+  faPlus,
+  faTrashCan,
+} from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import axios from 'axios'
+import numeral from 'numeral'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Swal from 'sweetalert2'
@@ -36,38 +45,42 @@ const ReimbursementIndex = () => {
     try {
       await axios.delete(`http://localhost:5000/api/reimbursement/${id}`)
       getReimbursements()
-    } catch(error) {
+    } catch (error) {
       console.log(error)
     }
   }
 
   const handleDeleteButton = (id, name, date) => {
-  Swal.fire({
-    title: 'Are you sure?',
-    text: 'You will not be able to recover this reimbursement data!',
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonColor: '#d33',
-    cancelButtonColor: '#3085d6',
-    confirmButtonText: 'Yes, delete it!',
-    timer: 5000,
-    timerProgressBar: true,
-    allowOutsideClick: false,
-  }).then((result) => {
-    if (result.isConfirmed) {
-      Swal.fire({
-        title: 'Deleted!',
-        text: `Reimbursement for ${name} at ${date} will be deleted`,
-        icon: 'success',
-        timer: 2000,
-        timerProgressBar: true,
-        showConfirmButton: false,
-      }).then(() => {
-        deleteReimbursement(id);
-      })
-    }
-  });
-};
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'You will not be able to recover this reimbursement data!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Yes, delete it!',
+      timer: 5000,
+      timerProgressBar: true,
+      allowOutsideClick: false,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: 'Deleted!',
+          text: `Reimbursement for ${name} at ${date} will be deleted`,
+          icon: 'success',
+          timer: 2000,
+          timerProgressBar: true,
+          showConfirmButton: false,
+        }).then(() => {
+          deleteReimbursement(id)
+        })
+      }
+    })
+  }
+
+  const formatCurrency = (amount) => {
+    return numeral(amount).format('0,0.00');
+  }
 
   return (
     <CCard>
@@ -75,7 +88,7 @@ const ReimbursementIndex = () => {
         <div className="d-flex">
           <div className="p-2 bd-highlight me-auto">
             <h4 className="fw-bold">
-              <FontAwesomeIcon icon={faFileInvoice} /> Reimbursement
+              <FontAwesomeIcon icon={faFileInvoice} /> Reimbursements
             </h4>
           </div>
           <div className="p-2 bd-highlight">
@@ -104,15 +117,52 @@ const ReimbursementIndex = () => {
             {reimbursements.map((reimbursement, index) => (
               <CTableRow key={reimbursement.id}>
                 <CTableHeaderCell scope="row">{index + 1}</CTableHeaderCell>
-                <CTableDataCell>{new Date(reimbursement.date).toISOString().split('T')[0]}</CTableDataCell>
+                <CTableDataCell>
+                  {new Date(reimbursement.date).toISOString().split('T')[0]}
+                </CTableDataCell>
                 <CTableDataCell>{reimbursement.employee_name}</CTableDataCell>
                 <CTableDataCell>{reimbursement.type_name}</CTableDataCell>
-                <CTableDataCell>{reimbursement.amount}</CTableDataCell>
-                <CTableDataCell>{reimbursement.status}</CTableDataCell>
+                <CTableDataCell>Rp{formatCurrency(reimbursement.amount)}</CTableDataCell>
                 <CTableDataCell>
-                  <Link to={`/reimbursement/show/${reimbursement.id}`} className='btn btn-sm btn-info me-2'><FontAwesomeIcon icon={faEye} /></Link>
-                  <Link to={`/reimbursement/edit/${reimbursement.id}`} className='btn btn-sm btn-warning me-2'><FontAwesomeIcon icon={faPen} /></Link>
-                  <CButton type='button' color='danger' className='btn-sm' onClick={() => handleDeleteButton(reimbursement.id, reimbursement.employee_name, new Date(reimbursement.date).toISOString().split('T')[0])}><FontAwesomeIcon icon={faTrashCan} /></CButton>
+                  {reimbursement.status === 'In review' ? (
+                    <CBadge color="warning">{reimbursement.status}</CBadge>
+                  ) : reimbursement.status === 'Declined' ? (
+                    <CBadge color="danger">{reimbursement.status}</CBadge>
+                  ) : (
+                    <CBadge color="success">{reimbursement.status}</CBadge>
+                  )}
+                </CTableDataCell>
+                <CTableDataCell>
+                  <Link
+                    to={`/reimbursement/show/${reimbursement.id}`}
+                    className="btn btn-sm btn-info me-2"
+                  >
+                    {reimbursement.status === 'In review' ? (
+                      <FontAwesomeIcon icon={faEye} />
+                    ) : (
+                      <FontAwesomeIcon icon={faFileCircleCheck} />
+                    )}
+                  </Link>
+                  <Link
+                    to={`/reimbursement/edit/${reimbursement.id}`}
+                    className="btn btn-sm btn-warning me-2"
+                  >
+                    <FontAwesomeIcon icon={faPen} />
+                  </Link>
+                  <CButton
+                    type="button"
+                    color="danger"
+                    className="btn-sm"
+                    onClick={() =>
+                      handleDeleteButton(
+                        reimbursement.id,
+                        reimbursement.employee_name,
+                        new Date(reimbursement.date).toISOString().split('T')[0],
+                      )
+                    }
+                  >
+                    <FontAwesomeIcon icon={faTrashCan} />
+                  </CButton>
                 </CTableDataCell>
               </CTableRow>
             ))}
