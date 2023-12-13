@@ -19,3 +19,4 @@
   - npm i @coreui/icons
   - npm i axios
   - npm i sweetalert2
+  - npm i numeral
