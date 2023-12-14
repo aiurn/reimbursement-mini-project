@@ -13,14 +13,7 @@ import {
   CTableDataCell,
   CBadge,
 } from '@coreui/react'
-import {
-  faEye,
-  faFileCircleCheck,
-  faFileInvoice,
-  faPen,
-  faPlus,
-  faTrashCan,
-} from '@fortawesome/free-solid-svg-icons'
+import { faEye, faFileInvoice, faPen, faPlus, faTrashCan } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import axios from 'axios'
 import numeral from 'numeral'
@@ -79,7 +72,7 @@ const ReimbursementIndex = () => {
   }
 
   const formatCurrency = (amount) => {
-    return numeral(amount).format('0,0.00');
+    return numeral(amount).format('0,0.00')
   }
 
   return (
@@ -106,7 +99,7 @@ const ReimbursementIndex = () => {
             <CTableRow>
               <CTableHeaderCell scope="col">#</CTableHeaderCell>
               <CTableHeaderCell scope="col">Date</CTableHeaderCell>
-              <CTableHeaderCell scope="col">Employee Name</CTableHeaderCell>
+              {/* <CTableHeaderCell scope="col">Employee Name</CTableHeaderCell> */}
               <CTableHeaderCell scope="col">Type</CTableHeaderCell>
               <CTableHeaderCell scope="col">Amount</CTableHeaderCell>
               <CTableHeaderCell scope="col">Status</CTableHeaderCell>
@@ -120,7 +113,7 @@ const ReimbursementIndex = () => {
                 <CTableDataCell>
                   {new Date(reimbursement.date).toISOString().split('T')[0]}
                 </CTableDataCell>
-                <CTableDataCell>{reimbursement.employee_name}</CTableDataCell>
+                {/* <CTableDataCell>{reimbursement.employee_name}</CTableDataCell> */}
                 <CTableDataCell>{reimbursement.type_name}</CTableDataCell>
                 <CTableDataCell>Rp{formatCurrency(reimbursement.amount)}</CTableDataCell>
                 <CTableDataCell>
@@ -137,32 +130,32 @@ const ReimbursementIndex = () => {
                     to={`/reimbursement/show/${reimbursement.id}`}
                     className="btn btn-sm btn-info me-2"
                   >
-                    {reimbursement.status === 'In review' ? (
-                      <FontAwesomeIcon icon={faEye} />
-                    ) : (
-                      <FontAwesomeIcon icon={faFileCircleCheck} />
-                    )}
+                    <FontAwesomeIcon icon={faEye} />
                   </Link>
-                  <Link
-                    to={`/reimbursement/edit/${reimbursement.id}`}
-                    className="btn btn-sm btn-warning me-2"
-                  >
-                    <FontAwesomeIcon icon={faPen} />
-                  </Link>
-                  <CButton
-                    type="button"
-                    color="danger"
-                    className="btn-sm"
-                    onClick={() =>
-                      handleDeleteButton(
-                        reimbursement.id,
-                        reimbursement.employee_name,
-                        new Date(reimbursement.date).toISOString().split('T')[0],
-                      )
-                    }
-                  >
-                    <FontAwesomeIcon icon={faTrashCan} />
-                  </CButton>
+                  {reimbursement.status === 'In review' && (
+                    <>
+                      <Link
+                        to={`/reimbursement/edit/${reimbursement.id}`}
+                        className="btn btn-sm btn-warning me-2"
+                      >
+                        <FontAwesomeIcon icon={faPen} />
+                      </Link>
+                      <CButton
+                        type="button"
+                        color="danger"
+                        className="btn-sm"
+                        onClick={() =>
+                          handleDeleteButton(
+                            reimbursement.id,
+                            reimbursement.employee_name,
+                            new Date(reimbursement.date).toISOString().split('T')[0],
+                          )
+                        }
+                      >
+                        <FontAwesomeIcon icon={faTrashCan} />
+                      </CButton>
+                    </>
+                  )}
                 </CTableDataCell>
               </CTableRow>
             ))}

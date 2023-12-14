@@ -22,22 +22,22 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
 const ReimbursementCreate = () => {
-  const [date, setDate] = useState('')
-  const [employee, setEmployee] = useState('')
+  // const [date, setDate] = useState('')
+  // const [employee, setEmployee] = useState('')
   const [type, setType] = useState('')
   const [amount, setAmount] = useState('')
   const [transactionReceipt, setTransactionReceipt] = useState(null)
   const [image, setImage] = useState('')
   const [note, setNote] = useState('')
   const [types, setTypes] = useState([])
-  const [employees, setEmployees] = useState([])
+  // const [employees, setEmployees] = useState([])
   const navigate = useNavigate()
 
-  const getEmployees = async () => {
-    const resp = await axios.get('http://localhost:5000/api/employee')
-    console.log(resp.data)
-    setEmployees(resp.data)
-  }
+  // const getEmployees = async () => {
+  //   const resp = await axios.get('http://localhost:5000/api/employee')
+  //   console.log(resp.data)
+  //   setEmployees(resp.data)
+  // }
 
   const getTypes = async () => {
     const resp = await axios.get('http://localhost:5000/api/type')
@@ -46,7 +46,7 @@ const ReimbursementCreate = () => {
   }
 
   useState(() => {
-    getEmployees()
+    // getEmployees()
     getTypes()
   }, [])
 
@@ -54,8 +54,8 @@ const ReimbursementCreate = () => {
     e.preventDefault()
     try {
       const formData = new FormData();
-      formData.append('date', date);
-      formData.append('employee_id', employee);
+      formData.append('date', new Date().toISOString().split('T')[0]);
+      formData.append('employee_id', 1);
       formData.append('type_id', type);
       formData.append('amount', amount);
       formData.append('transaction_receipt', transactionReceipt);
@@ -78,9 +78,12 @@ const ReimbursementCreate = () => {
   const handleUploadChange = (e) => {
     console.log(e.target.files[0])
     let uploaded = e.target.files[0]
-    setImage(URL.createObjectURL(uploaded))
-    console.log(URL.createObjectURL(uploaded))
-    setTransactionReceipt(uploaded)
+    if (uploaded) {
+      setImage(URL.createObjectURL(uploaded))
+      setTransactionReceipt(uploaded)
+    } else {
+      URL.revokeObjectURL(image);
+    }
   }
 
   return (
@@ -93,7 +96,7 @@ const ReimbursementCreate = () => {
       <CCardBody>
         <CForm onSubmit={storeReimbursement} encType='multipart/form-data'>
           {/* DATE */}
-          <CRow className="mb-3">
+          {/* <CRow className="mb-3">
             <CFormLabel htmlFor="date" className="col-sm-2 col-form-label">
               Date
             </CFormLabel>
@@ -107,10 +110,10 @@ const ReimbursementCreate = () => {
                 required
               />
             </CCol>
-          </CRow>
+          </CRow> */}
 
           {/* EMPLOYEE */}
-          <CRow className="mb-3">
+          {/* <CRow className="mb-3">
             <CFormLabel htmlFor="employee" className="col-sm-2 col-form-label">
               Employee
             </CFormLabel>
@@ -132,7 +135,7 @@ const ReimbursementCreate = () => {
                 ))}
               </CFormSelect>
             </CCol>
-          </CRow>
+          </CRow> */}
 
           {/* TYPE */}
           <CRow className="mb-3">
@@ -183,13 +186,11 @@ const ReimbursementCreate = () => {
               Transaction Receipt
             </CFormLabel>
             <CCol sm={10}>
-              <CImage width={200} src={image} />
+              <CImage width={200} src={image} className='mb-2' />
               <CFormInput
                 type="file"
                 name="transactionReceipt"
                 id="transactionReceipt"
-                // value={transactionReceipt}
-                // onChange={(e) => setTransactionReceipt(e.target.value)}
                 onChange={handleUploadChange}
                 required
                 accept='image/*'

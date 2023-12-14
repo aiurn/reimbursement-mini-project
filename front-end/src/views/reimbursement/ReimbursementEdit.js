@@ -23,22 +23,22 @@ import { Link, useNavigate, useParams } from 'react-router-dom'
 
 const ReimbursementEdit = () => {
   const [date, setDate] = useState('')
-  const [employee, setEmployee] = useState('')
+  // const [employee, setEmployee] = useState('')
   const [type, setType] = useState('')
   const [amount, setAmount] = useState('')
   const [transactionReceipt, setTransactionReceipt] = useState(null)
   const [image, setImage] = useState('')
   const [note, setNote] = useState('')
   const [types, setTypes] = useState([])
-  const [employees, setEmployees] = useState([])
+  // const [employees, setEmployees] = useState([])
   const navigate = useNavigate()
   const { id } = useParams()
 
-  const getEmployees = async () => {
-    const resp = await axios.get('http://localhost:5000/api/employee')
-    console.log(resp.data)
-    setEmployees(resp.data)
-  }
+  // const getEmployees = async () => {
+  //   const resp = await axios.get('http://localhost:5000/api/employee')
+  //   console.log(resp.data)
+  //   setEmployees(resp.data)
+  // }
 
   const getTypes = async () => {
     const resp = await axios.get('http://localhost:5000/api/type')
@@ -55,7 +55,7 @@ const ReimbursementEdit = () => {
     } else {
       console.error('Invalid date format:', resp.data[0].date)
     }
-    setEmployee(resp.data[0].employee_id)
+    // setEmployee(resp.data[0].employee_id)
     setType(resp.data[0].type_id)
     setAmount(resp.data[0].amount)
     setTransactionReceipt(resp.data[0].transaction_receipt)
@@ -65,7 +65,7 @@ const ReimbursementEdit = () => {
 
   useState(() => {
     getReimbursement()
-    getEmployees()
+    // getEmployees()
     getTypes()
   }, [])
 
@@ -74,13 +74,13 @@ const ReimbursementEdit = () => {
     try {
       const formData = new FormData()
       formData.append('date', date)
-      formData.append('employee_id', employee)
+      formData.append('employee_id', 1)
       formData.append('type_id', type)
       formData.append('amount', amount)
       formData.append('transaction_receipt', transactionReceipt)
       formData.append('note', note)
       formData.append('status', 'In review')
-      formData.append('reason', null)
+      // formData.append('reason', null)
 
       await axios.patch(`http://localhost:5000/api/reimbursement/${id}`, formData, {
         headers: {
@@ -95,12 +95,17 @@ const ReimbursementEdit = () => {
   }
 
   const handleUploadImage = (e) => {
-    console.log(e.target.files[0])
-    let uploaded = e.target.files[0]
-    setImage(URL.createObjectURL(uploaded))
-    console.log(URL.createObjectURL(uploaded))
-    setTransactionReceipt(uploaded)
-  }
+    const uploaded = e.target.files[0];
+
+    if (!uploaded) {
+      URL.revokeObjectURL(image);
+      setImage(transactionReceipt ? `http://localhost:5000/public/reimbursement_transaction/${transactionReceipt}` : '');
+      setTransactionReceipt(transactionReceipt);
+    } else {
+      setImage(URL.createObjectURL(uploaded));
+      setTransactionReceipt(uploaded);
+    }
+  };
 
   return (
     <CCard>
@@ -112,7 +117,7 @@ const ReimbursementEdit = () => {
       <CCardBody>
         <CForm onSubmit={updateReimbursement} encType="multipart/form-data">
           {/* DATE */}
-          <CRow className="mb-3">
+          {/* <CRow className="mb-3">
             <CFormLabel htmlFor="date" className="col-sm-2 col-form-label">
               Date
             </CFormLabel>
@@ -126,10 +131,10 @@ const ReimbursementEdit = () => {
                 required
               />
             </CCol>
-          </CRow>
+          </CRow> */}
 
           {/* EMPLOYEE */}
-          <CRow className="mb-3">
+          {/* <CRow className="mb-3">
             <CFormLabel htmlFor="employee" className="col-sm-2 col-form-label">
               Employee
             </CFormLabel>
@@ -151,7 +156,7 @@ const ReimbursementEdit = () => {
                 ))}
               </CFormSelect>
             </CCol>
-          </CRow>
+          </CRow> */}
 
           {/* TYPE */}
           <CRow className="mb-3">
@@ -202,15 +207,12 @@ const ReimbursementEdit = () => {
               Transaction Receipt
             </CFormLabel>
             <CCol sm={10}>
-              <CImage width={200} src={image} />
+              {image ? (<CImage width={200} src={image} className='mb-2' />) : <CImage width={200} src={`http://localhost:5000/public/reimbursement_transaction/${transactionReceipt}`} className='mb-2' />}
               <CFormInput
                 type="file"
                 name="transactionReceipt"
                 id="transactionReceipt"
-                // value={transactionReceipt}
-                // onChange={(e) => setTransactionReceipt(e.target.value)}
                 onChange={handleUploadImage}
-                // required
                 accept="image/*"
               />
             </CCol>

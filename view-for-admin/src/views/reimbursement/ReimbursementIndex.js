@@ -1,7 +1,6 @@
 /* eslint-disable react/react-in-jsx-scope */
 /* eslint-disable prettier/prettier */
 import {
-  CButton,
   CCard,
   CCardBody,
   CCardHeader,
@@ -17,16 +16,12 @@ import {
   faEye,
   faFileCircleCheck,
   faFileInvoice,
-  faPen,
-  faPlus,
-  faTrashCan,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import axios from 'axios'
 import numeral from 'numeral'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import Swal from 'sweetalert2'
 
 const ReimbursementIndex = () => {
   const [reimbursements, setReimbursement] = useState([])
@@ -41,42 +36,42 @@ const ReimbursementIndex = () => {
     setReimbursement(resp.data)
   }
 
-  const deleteReimbursement = async (id) => {
-    try {
-      await axios.delete(`http://localhost:5000/api/reimbursement/${id}`)
-      getReimbursements()
-    } catch (error) {
-      console.log(error)
-    }
-  }
+  // const deleteReimbursement = async (id) => {
+  //   try {
+  //     await axios.delete(`http://localhost:5000/api/reimbursement/${id}`)
+  //     getReimbursements()
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+  // }
 
-  const handleDeleteButton = (id, name, date) => {
-    Swal.fire({
-      title: 'Are you sure?',
-      text: 'You will not be able to recover this reimbursement data!',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#d33',
-      cancelButtonColor: '#3085d6',
-      confirmButtonText: 'Yes, delete it!',
-      timer: 5000,
-      timerProgressBar: true,
-      allowOutsideClick: false,
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Swal.fire({
-          title: 'Deleted!',
-          text: `Reimbursement for ${name} at ${date} will be deleted`,
-          icon: 'success',
-          timer: 2000,
-          timerProgressBar: true,
-          showConfirmButton: false,
-        }).then(() => {
-          deleteReimbursement(id)
-        })
-      }
-    })
-  }
+  // const handleDeleteButton = (id, name, date) => {
+  //   Swal.fire({
+  //     title: 'Are you sure?',
+  //     text: 'You will not be able to recover this reimbursement data!',
+  //     icon: 'warning',
+  //     showCancelButton: true,
+  //     confirmButtonColor: '#d33',
+  //     cancelButtonColor: '#3085d6',
+  //     confirmButtonText: 'Yes, delete it!',
+  //     timer: 5000,
+  //     timerProgressBar: true,
+  //     allowOutsideClick: false,
+  //   }).then((result) => {
+  //     if (result.isConfirmed) {
+  //       Swal.fire({
+  //         title: 'Deleted!',
+  //         text: `Reimbursement for ${name} at ${date} will be deleted`,
+  //         icon: 'success',
+  //         timer: 2000,
+  //         timerProgressBar: true,
+  //         showConfirmButton: false,
+  //       }).then(() => {
+  //         deleteReimbursement(id)
+  //       })
+  //     }
+  //   })
+  // }
 
   const formatCurrency = (amount) => {
     return numeral(amount).format('0,0.00');
@@ -85,20 +80,9 @@ const ReimbursementIndex = () => {
   return (
     <CCard>
       <CCardHeader>
-        <div className="d-flex">
-          <div className="p-2 bd-highlight me-auto">
             <h4 className="fw-bold">
               <FontAwesomeIcon icon={faFileInvoice} /> Reimbursements
             </h4>
-          </div>
-          <div className="p-2 bd-highlight">
-            <Link to="/reimbursement/create">
-              <CButton>
-                <FontAwesomeIcon icon={faPlus} /> Add Reimbursement
-              </CButton>
-            </Link>
-          </div>
-        </div>
       </CCardHeader>
       <CCardBody>
         <CTable>
@@ -143,26 +127,6 @@ const ReimbursementIndex = () => {
                       <FontAwesomeIcon icon={faFileCircleCheck} />
                     )}
                   </Link>
-                  <Link
-                    to={`/reimbursement/edit/${reimbursement.id}`}
-                    className="btn btn-sm btn-warning me-2"
-                  >
-                    <FontAwesomeIcon icon={faPen} />
-                  </Link>
-                  <CButton
-                    type="button"
-                    color="danger"
-                    className="btn-sm"
-                    onClick={() =>
-                      handleDeleteButton(
-                        reimbursement.id,
-                        reimbursement.employee_name,
-                        new Date(reimbursement.date).toISOString().split('T')[0],
-                      )
-                    }
-                  >
-                    <FontAwesomeIcon icon={faTrashCan} />
-                  </CButton>
                 </CTableDataCell>
               </CTableRow>
             ))}

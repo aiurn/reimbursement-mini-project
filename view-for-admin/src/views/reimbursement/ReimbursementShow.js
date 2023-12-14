@@ -136,13 +136,13 @@ const ReimbursementShow = () => {
     }
   }
 
-  const handleAprovalButton = (title, name, successTitle, successName, employee, date) => {
+  const handleAprovalButton = (title, name, successTitle, successName) => {
     Swal.fire({
       title: title,
-      text: `You will ${name} reimbursement from ${employee}`,
+      text: `You will ${name} this reimbursement`,
       icon: 'question',
       showCancelButton: true,
-      confirmButtonColor: '#d33',
+      confirmButtonColor: title === 'Accept?' ? '#2eb85c' : '#e55353',
       cancelButtonColor: '#3085d6',
       confirmButtonText: `Yes, ${name}!`,
       timer: 5000,
@@ -152,7 +152,7 @@ const ReimbursementShow = () => {
       if (result.isConfirmed) {
         Swal.fire({
           title: successTitle,
-          text: `Reimbursement from ${employee} at ${date} will be ${successName}.`,
+          text: `This reimbursement will be ${successName}.`,
           icon: 'success',
           timer: 2000,
           timerProgressBar: true,
@@ -350,7 +350,7 @@ const ReimbursementShow = () => {
           <CButton
             color="success"
             onClick={() =>
-              handleAprovalButton('Accept?', 'accept', 'Accepted!', 'accepted', employee.name, date)
+              handleAprovalButton('Accept?', 'accept', 'Accepted!', 'accepted')
             }
           >
             <FontAwesomeIcon icon={faPaperPlane} /> Accept
@@ -394,8 +394,6 @@ const ReimbursementShow = () => {
                 'decline',
                 'Declined!',
                 'declined',
-                employee.name,
-                date,
               )
             }
           >
